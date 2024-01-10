@@ -30,14 +30,15 @@ class SkiApp:
             return result.single()["path"]
 
     def find_easiest_path(self, start_piste, end_piste):
-        # Implement logic to find the easiest path based on your criteria
+        # Implementa la logica per trovare il percorso più facile
         pass
 
 # Esempio di utilizzo
-uri = "bolt://localhost:7687"  # Modifica con il tuo URI Neo4j
-user = "your_username"
-password = "your_password"
+uri = "neo4j+s://f47961c0.databases.neo4j.io"
+user = "neo4j"
+password = "ZIm0yRYzEYFfUuC7pfJDqwfaQxaLVNl3FAL1oE5vfGA"
 
+# Inizializza l'istanza SkiApp
 app = SkiApp(uri, user, password)
 
 # Ottieni tutte le piste in ordine di difficoltà
@@ -61,5 +62,6 @@ print("\nPercorso più breve da", start_piste, "a", end_piste, ":", shortest_pat
 # Trova il percorso più facile tra due punti
 # Implementa la logica per trovare il percorso più facile
 
+# Chiudi la connessione
 app.close()
 
