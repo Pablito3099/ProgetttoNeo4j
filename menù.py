@@ -9,28 +9,34 @@ def main_menu():#(connessionedb)
 
     while True:
         print("\nBenvenuto\n\n--nome impianto--\n\n")
-        print("1. Tutte le piste")
-        print("2. Piste aperte")
-        print("\n3. Esci")
+        print("- 1. Tutte le piste")
+        print("- 2. Piste aperte")
+        print("- 3. Calcola percorso")
+        print("\n- 4. Esci")
 
         scelta = input("\nSeleziona un'opzione:\n-  ")
 
-    ''' if scelta == "1":
-            #
+        if scelta == "1":
+            visualizza_tutte_piste()
         elif scelta == "2":
-            #
+            visual_piste_aperte()
         elif scelta == "3":
+            percorso_migliore()
+        elif scelta == "4":
             break
         else:
-            print("\n--Scelta non valida.--\n")'''
-    
-# Stampa risultato scelta 2
+            print("\n--Scelta non valida.--\n")
+
+
+# Stampa risultato scelta 1
 def visualizza_tutte_piste():
 
+    '''
     #info dal db
     query= ...
     result = session.run(query)
-    
+    '''
+
     #creazione tabella e aggiunta risultati
     table = PrettyTable()
     table.field_names = ["Nome Pista", "Difficoltà", "Lunghezza"]
@@ -40,12 +46,13 @@ def visualizza_tutte_piste():
 
     #Visualizzazione
     print(table)
-    input(print("\n1. Indietro\n-"))
+    input(print("\n- 1. Indietro\n-"))
 
     if input == "1":
         main_menu()
     else:
         print("\n--Scelta non valida--\n")
+
 
 #Aperto = Verde \ Chiuso = Rosso
 def colora_stato(stato):
@@ -56,7 +63,8 @@ def colora_stato(stato):
     else:
         return stato
     
-# Stampa risultato scelta 3
+
+# Stampa risultato scelta 2
 def visual_piste_aperte():
 
     '''
@@ -74,12 +82,22 @@ def visual_piste_aperte():
 
     #Visualizzazione
     print(table)
-    input(print("\n1. Indietro\n-"))
+    input(print("\n- 1. Indietro\n-"))
 
     if input == "1":
         main_menu()
     else:
         print("\n--Scelta non valida--\n")
+
+
+# Stampa risultato scelta 3
+def percorso_migliore():
+
+    '''
+    #info dal db
+    query =
+    result = session.run(query)
+    '''
 
 
 
