@@ -17,7 +17,7 @@ def visualizza_piste(query, connection):
         print(f"Nome: {nome}, Lunghezza: {lunghezza}, Difficoltà: {difficolta}")
 
 def visualizza_punti(query, connection):
-
+    pass
 
 class Neo4jConnection:
     def __init__(self, uri, username, password):
@@ -44,7 +44,7 @@ with Neo4jConnection(uri, username, password) as connection:
     # Esempio di query per recuperare tutte le relazioni di tipo PISTA
     query = "MATCH ()-[r:PISTA]->() RETURN r"
     query2 = "MATCH (n) RETURN n"
-    visualizza_piste(query=query2, connection=connection)
+    visualizza_piste(query=query, connection=connection)
 
 
 

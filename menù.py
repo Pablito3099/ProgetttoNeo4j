@@ -1,11 +1,10 @@
 from prettytable import PrettyTable
-from neo4j import GraphDatabase
 from colorama import Fore, Style
 
 
 
 # Menù iniziale
-def main_menu():#(connessionedb)
+def main_menu():
 
     while True:
         print("\nBenvenuto\n\n--nome impianto--\n\n")
@@ -39,10 +38,10 @@ def visualizza_tutte_piste():
 
     #creazione tabella e aggiunta risultati
     table = PrettyTable()
-    table.field_names = ["Nome Pista", "Difficoltà", "Lunghezza"]
+    table.field_names = ["Nome Pista", "Difficoltà", "Lunghezza (m)", "Stato" ]
 
     for record in result:
-        table.add_row([record["Nome"], record["Difficolta"], record["Lunghezza"]])
+        table.add_row([record["Nome"], record["Difficolta"], record["Lunghezza"], colora_stato(record["Stato"])])
 
     #Visualizzazione
     print(table)
