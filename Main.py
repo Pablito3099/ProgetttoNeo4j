@@ -47,12 +47,14 @@ class Neo4jConnection:
             result = session.run(query, parameters)
             return list(result)
 
-# Utilizza la classe Neo4jConnection
 with Neo4jConnection(uri, username, password) as connection:
     query = "MATCH ()-[r:PISTA]->() RETURN r"
     query2 = "MATCH (n) RETURN n"
+    query3 = "MATCH ()-[r:PISTA {aperta: true}]->() RETURN r"
     visualizza_piste(query=query, connection=connection)
+    visualizza_piste(query=query3, connection=connection)
     visualizza_punti(query=query2, connection=connection)
+
 
 
 
