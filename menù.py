@@ -1,7 +1,12 @@
+from Funzioni import Neo4jConnection, visualizza_piste, visualizza_punti, visualizza_impianti, calcola_percorso
+
 from prettytable import PrettyTable
 from colorama import Fore, Style
 
 
+uri = "neo4j+s://f47961c0.databases.neo4j.io"
+username = "neo4j"
+password = "ZIm0yRYzEYFfUuC7pfJDqwfaQxaLVNl3FAL1oE5vfGA"
 
 # Menù iniziale
 def main_menu():
@@ -16,91 +21,18 @@ def main_menu():
         scelta = input("\nSeleziona un'opzione:\n-  ")
 
         if scelta == "1":
-            visualizza_tutte_piste()
+            visualizza_piste(connection=connection)
         elif scelta == "2":
-            visual_piste_aperte()
+            visualizza_piste(connection=connection, aperte=True)
         elif scelta == "3":
-            percorso_migliore()
+            calcola_percorso(connection=connection)
         elif scelta == "4":
             break
         else:
             print("\n--Scelta non valida.--\n")
 
 
-# Stampa risultato scelta 1
-def visualizza_tutte_piste():
-
-    '''
-    #info dal db
-    query= ...
-    result = session.run(query)
-    '''
-
-    #creazione tabella e aggiunta risultati
-    table = PrettyTable()
-    table.field_names = ["Nome Pista", "Difficoltà", "Lunghezza (m)", "Stato" ]
-
-    for record in result:
-        table.add_row([record["Nome"], record["Difficolta"], record["Lunghezza"], colora_stato(record["Stato"])])
-
-    #Visualizzazione
-    print(table)
-    input(print("\n- 1. Indietro\n-"))
-
-    if input == "1":
-        main_menu()
-    else:
-        print("\n--Scelta non valida--\n")
-
-
-#Aperto = Verde \ Chiuso = Rosso
-def colora_stato(stato):
-    if stato.lower() == 'aperto':
-        return f"{Fore.GREEN}{stato}{Style.RESET_ALL}"
-    elif stato.lower() == 'chiuso':
-        return f"{Fore.RED}{stato}{Style.RESET_ALL}"
-    else:
-        return stato
-    
-
-# Stampa risultato scelta 2
-def visual_piste_aperte():
-
-    '''
-    #info dal db
-    query =
-    result = session.run(query)
-    '''
-
-    #creazione tabella e aggiunta risultati
-    table = PrettyTable()
-    table.field_names = ["Nome Pista", "Difficoltà", "Stato"]
-
-    for record in result:
-         table.add_row([record["Nome"], record["Difficolta"], colora_stato(record["Stato"])])
-
-    #Visualizzazione
-    print(table)
-    input(print("\n- 1. Indietro\n-"))
-
-    if input == "1":
-        main_menu()
-    else:
-        print("\n--Scelta non valida--\n")
-
-
-# Stampa risultato scelta 3
-def percorso_migliore():
-
-    '''
-    #info dal db
-    query =
-    result = session.run(query)
-    '''
-
-
-
-
 
 if __name__ == "__main__":
-    main_menu()
+    with Neo4jConnection(uri, username, password) as connection:
+        main_menu(connection)
