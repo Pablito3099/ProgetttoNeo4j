@@ -1,5 +1,4 @@
 from Funzioni import *
-
 from colorama import Fore, Style
 
 uri = "neo4j+s://f47961c0.databases.neo4j.io"
@@ -9,11 +8,11 @@ password = "ZIm0yRYzEYFfUuC7pfJDqwfaQxaLVNl3FAL1oE5vfGA"
 # Menù iniziale
 def main_menu(connection):
     while True:
-        print("\nBenvenuto\n\n--nome impianto--\n\n")
+        print(f"{Fore.BLUE}\n-- CHAMONIX --\n{Style.RESET_ALL}")
         print("- 1. Tutte le piste")
         print("- 2. Piste aperte")
         print("- 3. Calcola percorso")
-        print("\n- 4. Esci")
+        print("----------\n- 4. Esci\n----------")
 
         scelta = input("\nSeleziona un'opzione:\n-  ")
 

@@ -35,6 +35,7 @@ def visualizza_piste(connection, aperte=False):
     piste = connection.run_query(query)
 
     table = PrettyTable()
+    table.title = 'PISTE'
     table.field_names = ["Nome", "Lunghezza", "Difficoltà", "Stato"]
 
     for pista in piste:
@@ -53,11 +54,17 @@ def visualizza_punti(connection):
     lista_punti = []
     query = "MATCH (n) RETURN n"
     punti = connection.run_query(query)
-    for punto in punti:
+    table_punti = PrettyTable()
+    table_punti.title = 'PUNTI DISPONIBILI'
+    table_punti.field_names = ["Idx", "Nome", "Tipologia"]
+
+    for idx, punto in enumerate(punti, start=1):
         nome = punto['n'].get('nome', 'N/A')
         tipo = punto['n'].get('tipo', 'N/A')
-        print(f"Nome: {nome}, Tipo: {tipo}")
+        table_punti.add_row([idx, nome, tipo])
         lista_punti.append(nome)
+
+    print(table_punti)
     return lista_punti
 
 def visualizza_impianti(connection):
@@ -71,13 +78,10 @@ def visualizza_impianti(connection):
 
 def calcola_percorso(connection):
     lista_punti = visualizza_punti(connection)
-    print("Punti disponibili:")
-    for idx, nome in enumerate(lista_punti, start=1):
-        print(f"{idx}. Nome: {nome}")
     while True:
         try:
-            indice_partenza = int(input("Inserisci il numero del punto di partenza: "))
-            indice_arrivo = int(input("Inserisci il numero del punto di arrivo: "))
+            indice_partenza = int(input("\nInserisci il numero del punto di partenza:\n-  "))
+            indice_arrivo = int(input("\nInserisci il numero del punto di arrivo:\n-  "))
             if 1 <= indice_partenza <= len(lista_punti) and 1 <= indice_arrivo <= len(lista_punti):
                 break
             else:
@@ -96,7 +100,7 @@ def calcola_percorso(connection):
 
     for record in percorsi:
         path = record['path']
-        print(f"Percorso:")
+        print(f"\nPercorso:")
         for i in range(len(path.nodes) - 1):
             nodo_partenza = path.nodes[i]
             nodo_arrivo = path.nodes[i + 1]
