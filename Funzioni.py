@@ -1,4 +1,6 @@
 from neo4j import GraphDatabase
+from prettytable import PrettyTable
+from colorama import Fore
 
 uri = "neo4j+s://f47961c0.databases.neo4j.io"
 username = "neo4j"
@@ -31,12 +33,21 @@ def visualizza_piste(connection, aperte=False):
     query += "RETURN r"
 
     piste = connection.run_query(query)
+
+    table = PrettyTable()
+    table.field_names = ["Nome", "Lunghezza", "Difficoltà", "Stato"]
+
     for pista in piste:
         nome = pista['r'].get('nome', 'N/A')
         lunghezza = pista['r'].get('lunghezza', 'N/A')
         difficolta = pista['r'].get('difficoltà', 'N/A')
+        aperta = pista['r'].get('aperta', False)
+        stato = Fore.GREEN + 'Aperta' + Fore.RESET if aperta else Fore.RED + 'Chiusa' + Fore.RESET
         colore = 'Blu' if difficolta == 1 else ('Rossa' if difficolta == 2 else 'Nera')
-        print(f"Nome: {nome}, Lunghezza: {lunghezza}, Difficoltà: {colore}")
+
+        table.add_row([nome, lunghezza, colore, stato])
+
+    print(table)
 
 def visualizza_punti(connection):
     lista_punti = []
@@ -52,9 +63,11 @@ def visualizza_punti(connection):
 def visualizza_impianti(connection):
     query = "MATCH ()-[r:IMPIANTO]->() RETURN r"
     impianti = connection.run_query(query)
+    print("Tutti gli impianti:")
     for impianto in impianti:
         nome = impianto['r'].get('nome', 'N/A')
         print(f"Nome: {nome}")
+
 
 def calcola_percorso(connection):
     lista_punti = visualizza_punti(connection)
@@ -91,13 +104,6 @@ def calcola_percorso(connection):
             print(f"  - Da: {nodo_partenza['nome']}, A: {nodo_arrivo['nome']}, Pista: {relazione['nome']}")
         print()
 
-# Utilizzo della classe Neo4jConnection
-with Neo4jConnection(uri, username, password) as connection:
-    visualizza_piste(connection)
-    visualizza_piste(connection, aperte=True)
-    visualizza_punti(connection)
-    visualizza_impianti(connection)
-    calcola_percorso(connection)
 
 
 

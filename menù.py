@@ -1,16 +1,13 @@
-from Funzioni import Neo4jConnection, visualizza_piste, visualizza_punti, visualizza_impianti, calcola_percorso
+from Funzioni import *
 
-from prettytable import PrettyTable
 from colorama import Fore, Style
-
 
 uri = "neo4j+s://f47961c0.databases.neo4j.io"
 username = "neo4j"
 password = "ZIm0yRYzEYFfUuC7pfJDqwfaQxaLVNl3FAL1oE5vfGA"
 
 # Menù iniziale
-def main_menu():
-
+def main_menu(connection):
     while True:
         print("\nBenvenuto\n\n--nome impianto--\n\n")
         print("- 1. Tutte le piste")
@@ -21,8 +18,10 @@ def main_menu():
         scelta = input("\nSeleziona un'opzione:\n-  ")
 
         if scelta == "1":
+            print("\nTutti le piste:\n")
             visualizza_piste(connection=connection)
         elif scelta == "2":
+            print('\nPiste aperte:\n')
             visualizza_piste(connection=connection, aperte=True)
         elif scelta == "3":
             calcola_percorso(connection=connection)
@@ -30,8 +29,6 @@ def main_menu():
             break
         else:
             print("\n--Scelta non valida.--\n")
-
-
 
 if __name__ == "__main__":
     with Neo4jConnection(uri, username, password) as connection:
